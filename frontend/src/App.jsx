@@ -7,6 +7,7 @@ import {
   CheckCircleIcon,
   XCircleIcon,
 } from "@heroicons/react/24/solid";
+import FloatingComponent from "./components/FloatingComponent";
 
 export default function App() {
   // State Variables
@@ -189,13 +190,35 @@ export default function App() {
       </DragDropContext>
 
       {/* Floating Action Button */}
-      <button
+      {/* <button
         onClick={() => setModalOpen(true)}
         className="fixed bottom-8 right-8 bg-black text-white rounded-full w-15 h-15 flex items-center font-bold justify-center shadow-lg"
         aria-label="Add Task"
       >
         <span className="text-4xl leading-none">+</span>
-      </button>
+      </button> */}
+      <FloatingComponent
+        buttonContent={<span className="text-4xl leading-none">+</span>}
+        spacing=" bottom-8 right-8 "
+        setModalOpen={setModalOpen}
+      />
+
+      <FloatingComponent
+        buttonContent={
+          <a
+            href="https://themukherjee.tiiny.site/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src="https://themukherjee.vercel.app/assets/photo.jpg"
+              alt="Open link"
+              className="h-15 w-15 object-contain rounded-full"
+            />
+          </a>
+        }
+        spacing=" bottom-8 left-8 "
+      />
 
       {/* Modal Overlay */}
       {modalOpen && (
