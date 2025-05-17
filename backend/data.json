@@ -1,0 +1,37 @@
+[
+  {
+    "title": "Understand the ML Roadmap",
+    "description": "Initialize GitHub repo and CI/CD",
+    "column": "todo"
+  },
+  {
+    "title": "Learn Feature Engineering ( EDA, PCA, etc.)",
+    "description": "ER diagram for task, user, comment tables",
+    "column": "inprogress"
+  },
+  {
+    "title": "Linear Regression",
+    "description": "Deploy backend and frontend to staging environment",
+    "column": "done"
+  },
+  {
+    "title": "Understand the Loss Functions for Regression (e.g. MSE, MAE, etc.)",
+    "description": "Deploy backend and frontend to staging environment",
+    "column": "done"
+  },
+  {
+    "title": "Cross Validation (LOO, Grid Search CV, Randomized CV, etc.)",
+    "description": "Deploy backend and frontend to staging environment",
+    "column": "done"
+  },
+  {
+    "title": "Ridge & Lasso Regression ( & Elastic Net )",
+    "description": "Deploy backend and frontend to staging environment",
+    "column": "done"
+  },
+  {
+    "title": "Logistic Regression",
+    "description": "Deploy backend and frontend to staging environment",
+    "column": "done"
+  }
+]

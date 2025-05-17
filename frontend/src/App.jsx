@@ -42,7 +42,9 @@ export default function App() {
       [destination.droppableId]: destCol,
     });
     await updateTask(draggableId, { column: destination.droppableId });
-    fetchBoard().then((data) => setColumns(data.columns));
+    if (source.droppableId != destination.droppableId) {
+      fetchBoard().then((data) => setColumns(data.columns));
+    }
   };
 
   // Handle form input changes
@@ -119,77 +121,66 @@ export default function App() {
                 <h2 className="font-bold mb-2 uppercase">{col.name}</h2>
                 <hr />
                 <br />
-                {col.tasks.map(
-                  (task, idx) => (
-                    console.log(task),
-                    (
-                      <Draggable
-                        draggableId={task.id}
-                        index={idx}
-                        key={task.id}
+                {col.tasks.map((task, idx) => (
+                  <Draggable draggableId={task.id} index={idx} key={task.id}>
+                    {(p) => (
+                      <div
+                        ref={p.innerRef}
+                        {...p.draggableProps}
+                        {...p.dragHandleProps}
+                        className={
+                          task.column === "done"
+                            ? "bg-green-100 p-2 mb-2 rounded flex items-center justify-between hover:bg-green-200"
+                            : "bg-gray-100 p-2 mb-2 rounded flex items-center justify-between hover:bg-gray-200"
+                        }
                       >
-                        {(p) => (
-                          <div
-                            ref={p.innerRef}
-                            {...p.draggableProps}
-                            {...p.dragHandleProps}
-                            className={
-                              task.column === "done"
-                                ? "bg-green-100 p-2 mb-2 rounded flex items-center justify-between hover:bg-green-200"
-                                : "bg-gray-100 p-2 mb-2 rounded flex items-center justify-between hover:bg-gray-200"
-                            }
-                          >
-                            {editingId === task.id ? (
-                              <input
-                                value={editText}
-                                onChange={(e) => setEditText(e.target.value)}
-                                className="border border-gray-300 rounded px-2 py-1 mr-2 flex-grow focus:outline-none"
-                              />
-                            ) : (
-                              <span className="flex-grow">{task.title}</span>
-                            )}
-
-                            <div className="flex space-x-1">
-                              {editingId === task.id ? (
-                                <>
-                                  <button
-                                    onClick={() => submitEdit(task, colKey)}
-                                    className="text-green-600 hover:underline"
-                                  >
-                                    <CheckCircleIcon className="h-5 w-5 text-green-500" />
-                                  </button>
-                                  <button
-                                    onClick={cancelEditing}
-                                    className="text-red-600 hover:underline"
-                                  >
-                                    <XCircleIcon className="h-5 w-5 text-red-500" />
-                                  </button>
-                                </>
-                              ) : (
-                                <>
-                                  <button
-                                    onClick={() => startEditing(task)}
-                                    className="text-blue-600 hover:underline"
-                                  >
-                                    <PencilSquareIcon className="h-5 w-5 text-black" />
-                                  </button>
-                                  <button
-                                    onClick={() =>
-                                      handleDelete(task.id, colKey)
-                                    }
-                                    className="text-red-600 hover:underline"
-                                  >
-                                    <TrashIcon className="h-5 w-5 text-red-500" />
-                                  </button>
-                                </>
-                              )}
-                            </div>
-                          </div>
+                        {editingId === task.id ? (
+                          <input
+                            value={editText}
+                            onChange={(e) => setEditText(e.target.value)}
+                            className="border border-gray-300 rounded px-2 py-1 mr-2 flex-grow focus:outline-none"
+                          />
+                        ) : (
+                          <span className="flex-grow">{task.title}</span>
                         )}
-                      </Draggable>
-                    )
-                  )
-                )}
+
+                        <div className="flex space-x-1">
+                          {editingId === task.id ? (
+                            <>
+                              <button
+                                onClick={() => submitEdit(task, colKey)}
+                                className="text-green-600 hover:underline"
+                              >
+                                <CheckCircleIcon className="h-5 w-5 text-green-500" />
+                              </button>
+                              <button
+                                onClick={cancelEditing}
+                                className="text-red-600 hover:underline"
+                              >
+                                <XCircleIcon className="h-5 w-5 text-red-500" />
+                              </button>
+                            </>
+                          ) : (
+                            <>
+                              <button
+                                onClick={() => startEditing(task)}
+                                className="text-blue-600 hover:underline"
+                              >
+                                <PencilSquareIcon className="h-5 w-5 text-black" />
+                              </button>
+                              <button
+                                onClick={() => handleDelete(task.id, colKey)}
+                                className="text-red-600 hover:underline"
+                              >
+                                <TrashIcon className="h-5 w-5 text-red-500" />
+                              </button>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </Draggable>
+                ))}
                 {prov.placeholder}
               </div>
             )}
