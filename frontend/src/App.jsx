@@ -8,11 +8,13 @@ import {
   XCircleIcon,
 } from "@heroicons/react/24/solid";
 import FloatingComponent from "./components/FloatingComponent";
+import { useFetchBoard } from "./hooks/useFetchBoard";
 
 export default function App() {
-  // State Variables
-  const [columns, setColumns] = useState({});
+  // Custom Hook
+  const [columns, setColumns] = useFetchBoard();
 
+  // State
   const [modalOpen, setModalOpen] = useState(false);
   const [form, setForm] = useState({
     title: "",
@@ -22,11 +24,6 @@ export default function App() {
 
   const [editingId, setEditingId] = useState(null);
   const [editText, setEditText] = useState("");
-
-  // Handle initial API fetch
-  useEffect(() => {
-    fetchBoard().then((data) => setColumns(data.columns));
-  }, []);
 
   // Handle drag and drop
   const onDragEnd = async ({ source, destination, draggableId }) => {
@@ -190,13 +187,6 @@ export default function App() {
       </DragDropContext>
 
       {/* Floating Action Button */}
-      {/* <button
-        onClick={() => setModalOpen(true)}
-        className="fixed bottom-8 right-8 bg-black text-white rounded-full w-15 h-15 flex items-center font-bold justify-center shadow-lg"
-        aria-label="Add Task"
-      >
-        <span className="text-4xl leading-none">+</span>
-      </button> */}
       <FloatingComponent
         buttonContent={<span className="text-4xl leading-none">+</span>}
         spacing=" bottom-8 right-8 "
