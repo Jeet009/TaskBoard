@@ -15,7 +15,7 @@ seed_sample()
 # CORS setup for your Vite frontend origin
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=["http://localhost:5173", "https://task-board-online.netlify.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
